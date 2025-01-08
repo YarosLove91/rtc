@@ -95,7 +95,7 @@ module rtc_date(
 
 	always_ff @(posedge clk_i or negedge rstn_i) begin : proc_r_year
 	 	if(~rstn_i) begin
-	 		r_year <= 14'h2000;
+	 		r_year <= 14'h1970;
 	 	end else begin
 	 		if (date_update_i)
 	 			r_year <= s_year;
