@@ -34,7 +34,7 @@ module rtc_clock (
                   input logic [1:0]   event_flag_i ,
                   output logic [1:0]  event_flag_o,
                   output logic        event_o,
-
+									input logic 				timer_event_en_i,
                   output logic        update_day_o
                   );
 
@@ -90,6 +90,7 @@ module rtc_clock (
    logic [16:0]                       r_timer_target;
    logic                              r_timer_en;
    logic                              r_timer_retrig;
+   logic                              r_timer_event;
 
    logic [1:0]                        r_event_flag;
 
@@ -122,7 +123,7 @@ module rtc_clock (
    assign s_alarm_event = r_alarm_enable & s_alarm_match & ~r_alarm_match; //edge detect on alarm event
 
    assign s_timer_match = r_timer == r_timer_target;
-   assign s_timer_event = r_timer_en & s_timer_match;
+   assign s_timer_event = r_timer_event & r_timer_en & s_timer_match;
 
    assign s_update_seconds = (r_sec_counter == r_sec_cnt_calibre);
    assign s_update_minutes = s_update_seconds & (r_seconds == 8'h59);
@@ -211,6 +212,7 @@ module rtc_clock (
         if(~rstn_i)
           begin
              r_timer_en     <= 'h0;
+             r_timer_event  <= 'h0;
              r_timer_target <= 'h0;
              r_timer        <= 'h0;
              r_timer_retrig <= 'h0;
@@ -221,6 +223,7 @@ module rtc_clock (
                begin
                   r_timer_en     <= timer_enable_i;
                   r_timer_target <= timer_target_i;
+                  r_timer_event  <= timer_event_en_i;
                   r_timer_retrig <= timer_retrig_i;
                   r_timer        <= 'h0;
                end
