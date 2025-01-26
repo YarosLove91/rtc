@@ -79,6 +79,7 @@ module rtc_clock (
    logic                              r_alarm_match;
    logic                              s_alarm_event;
    logic                              s_timer_event;
+   logic                              s_timer_match;
 
    logic                              s_match_year;
    logic                              s_match_month;
