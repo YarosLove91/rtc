@@ -25,6 +25,7 @@ module rtc_clock (
                   output logic [21:0] alarm_clock_o,
 
                   input logic         alarm_update_date_i,
+                  /* verilator lint_off UNUSEDSIGNAL */
                   input logic [31:0]  alarm_date_i,
                   output logic [31:0] alarm_date_o,
 

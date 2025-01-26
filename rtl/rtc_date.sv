@@ -3,6 +3,7 @@ module rtc_date(
 	input  logic rstn_i,
 
 	input  logic        date_update_i,
+	/* verilator lint_off UNUSEDSIGNAL */
 	input  logic [31:0] date_i,
 	output logic [31:0] date_o,
 
