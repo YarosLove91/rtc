@@ -32,11 +32,8 @@ module rtc_top (
                 input logic [31:0]  alarm_date_i,
                 output logic [31:0] alarm_date_o,
 
-                input logic         event_flag_update_i,
-                input logic [1:0]   event_flag_i,
-                output logic [1:0]  event_flag_o,
-
-                output logic        event_o
+                output logic        timer_flag,
+                output logic        alarm_flag
                 );
 
    logic                            s_rtc_update_day;
@@ -68,11 +65,8 @@ module rtc_top (
       .alarm_update_date_i  ( alarm_update_date_i  ),
       .alarm_date_i         ( alarm_date_i         ),
       .alarm_date_o         ( alarm_date_o         ),
-
-      .event_flag_update_i  ( event_flag_update_i  ),
-      .event_flag_i         ( event_flag_i         ),
-      .event_flag_o         ( event_flag_o         ),
-      .event_o              ( event_o              ),
+      .timer_flag           ( timer_flag           ),
+      .alarm_flag           ( alarm_flag           ),
       .update_day_o         ( s_rtc_update_day     )
       );
 
