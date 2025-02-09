@@ -30,12 +30,9 @@ module rtc_clock (
                   output logic [31:0] alarm_date_o,
 
                   input logic [31:0]  date_i,
+                  output logic        timer_flag,
+                  output logic        alarm_flag,
 
-                  input logic         event_flag_update_i,
-                  input logic [1:0]   event_flag_i ,
-                  output logic [1:0]  event_flag_o,
-                  output logic        event_o,
-									input logic 				timer_event_en_i,
                   output logic        update_day_o
                   );
 
@@ -92,9 +89,6 @@ module rtc_clock (
    logic [16:0]                       r_timer_target;
    logic                              r_timer_en;
    logic                              r_timer_retrig;
-   logic                              r_timer_event;
-
-   logic [1:0]                        r_event_flag;
 
    assign s_seconds = clock_i[7:0];
    assign s_minutes = clock_i[15:8];
@@ -125,13 +119,17 @@ module rtc_clock (
    assign s_alarm_event = r_alarm_enable & s_alarm_match & ~r_alarm_match; //edge detect on alarm event
 
    assign s_timer_match = r_timer == r_timer_target;
-   assign s_timer_event = r_timer_event & r_timer_en & s_timer_match;
+   assign s_timer_event = r_timer_en & s_timer_match;
 
    assign s_update_seconds = (r_sec_counter == r_sec_cnt_calibre);
    assign s_update_minutes = s_update_seconds & (r_seconds == 8'h59);
    assign s_update_hours   = s_update_minutes & (r_minutes == 8'h59);
 
-   assign event_o        = s_alarm_event | s_timer_event;
+   always_comb begin : event_flags_assign
+      timer_flag = s_timer_event;
+      alarm_flag = s_alarm_event;
+   end
+
    assign update_day_o   = s_update_hours & (r_hours == 6'h23);
    assign clock_o        = {r_hours,r_minutes,r_seconds};
    assign alarm_clock_o  = {r_alarm_hours,r_alarm_minutes,r_alarm_seconds};
@@ -139,33 +137,6 @@ module rtc_clock (
 
    assign timer_value_o     = r_timer;
    assign calibre_sec_cnt_o = r_sec_cnt_calibre;
-   assign event_flag_o      = r_event_flag;
-
-
-   always @ (posedge clk_i or negedge rstn_i)
-     begin
-        if(~rstn_i)
-          r_event_flag <= 'h0;
-        else
-          begin
-             if (event_flag_update_i)
-               begin
-                  if (event_flag_i[0])
-                    r_event_flag[0] <= 1'b0;
-
-                  if (event_flag_i[1])
-                    r_event_flag[1] <= 1'b0;
-               end // if (event_flag_update_i)
-             else if (s_alarm_event)
-               begin
-                  r_event_flag[0] <= 1'b1;
-               end
-             else if (s_timer_event)
-               begin
-                  r_event_flag[1] <= 1'b1;
-               end
-          end
-     end
 
    always @ (posedge clk_i or negedge rstn_i)
      begin
@@ -214,7 +185,6 @@ module rtc_clock (
         if(~rstn_i)
           begin
              r_timer_en     <= 'h0;
-             r_timer_event  <= 'h0;
              r_timer_target <= 'h0;
              r_timer        <= 'h0;
              r_timer_retrig <= 'h0;
@@ -225,7 +195,6 @@ module rtc_clock (
                begin
                   r_timer_en     <= timer_enable_i;
                   r_timer_target <= timer_target_i;
-                  r_timer_event  <= timer_event_en_i;
                   r_timer_retrig <= timer_retrig_i;
                   r_timer        <= 'h0;
                end
