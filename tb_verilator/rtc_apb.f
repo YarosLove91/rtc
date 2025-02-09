@@ -1,0 +1,14 @@
+../rtc/rtl/common_cells/include/common_cells/registers.svh
+../rtc/rtl/common_cells/src/cf_math_pkg.sv
+../rtc/rtl/common_cells/src/addr_decode_dync.sv
+../rtc/rtl/common_cells/src/addr_decode.sv
+../rtc/rtl/apb_pulp/src/apb_pkg.sv
+../rtc/rtl/apb_pulp/src/apb_regs.sv
+../rtc/rtl/apb_pulp/src/apb_intf.sv
+../rtc/rtl/rtc_date.sv
+../rtc/rtl/rtc_clock.sv
+../rtc/rtl/rtc_top.sv
+../rtc/rtl/rtc_apb.sv
+../rtc/rtl/rtc_apb_sim.sv
+main.cpp
+rtc_apb.cpp

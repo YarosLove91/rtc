@@ -77,42 +77,6 @@ typedef struct {
 #define RTC_EVENT_FLAG_TIMER_SHIFT    (1U)
 #define RTC_EVENT_FLAG_TIMER(x)       (((uint32_t)(((uint32_t)(x)) << RTC_EVENT_FLAG_TIMER_SHIFT)) & RTC_EVENT_FLAG_TIMER_MASK)
 
-// ### New regs!
-/*! @name CALIBRATE_RATE - RTC Count Rate Calibration Register */
-#define RTC_CALIBRATE_DATA_MASK       (0xFFFF0000)
-#define RTC_CALIBRATE_DATA_SHIFT      (0U)
-#define RTC_CALIBRATE_DATA(x)         (((uint32_t)(((uint32_t)(x)) /* << RTC_DATE_DATA_SHIFT */)) & RTC_CALIBRATE_DATA_MASK)
-
-/*! @name UPDATE_SIGNAL Register for updating RTC subsystems */
-#define RTC_UPDATE_SIGNAL_ALL_DATA_MASK   (0x1F)          // Маска для всех флагов обновления (6 бит)
-#define RTC_UPDATE_SIGNAL_ALL_DATA_SHIFT  (0U)            // Сдвиг для флагов обновления
-#define RTC_UPDATE_SIGNAL_ALL(x)          (((uint32_t)(((uint32_t)(x)) << RTC_UPDATE_SIGNAL_DATA_SHIFT)) & RTC_UPDATE_SIGNAL_DATA_MASK)
-
-// Флаг обновления даты
-#define RTC_DATE_UPDATE_MASK          (0x01)          // Маска для флага обновления даты (бит 0)
-#define RTC_DATE_UPDATE_SHIFT         (1U)            // Сдвиг для флага обновления даты
-#define RTC_DATE_UPDATE(x)            (((uint32_t)(((uint32_t)(x)) << RTC_DATE_UPDATE_SHIFT)) & RTC_DATE_UPDATE_MASK)
-
-// Флаг обновления часов
-#define RTC_CLOCK_UPDATE_MASK         (0x02)          // Маска для флага обновления часов (бит 1)
-#define RTC_CLOCK_UPDATE_SHIFT        (2U)            // Сдвиг для флага обновления часов
-#define RTC_CLOCK_UPDATE(x)           (((uint32_t)(((uint32_t)(x)) << RTC_CLOCK_UPDATE_SHIFT)) & RTC_CLOCK_UPDATE_MASK)
-
-// Флаг обновления калибровки
-#define RTC_CALIBRE_UPDATE_MASK       (0x04)          // Маска для флага обновления калибровки (бит 2)
-#define RTC_CALIBRE_UPDATE_SHIFT      (3U)            // Сдвиг для флага обновления калибровки
-#define RTC_CALIBRE_UPDATE(x)         (((uint32_t)(((uint32_t)(x)) << RTC_CALIBRE_UPDATE_SHIFT)) & RTC_CALIBRE_UPDATE_MASK)
-
-// Флаг обновления таймера
-#define RTC_TIMER_UPDATE_MASK          (0x08)          // Маска для флага обновления таймера (бит 3)
-#define RTC_TIMER_UPDATE_SHIFT         (4U)            // Сдвиг для флага обновления таймера
-#define RTC_TIMER_UPDATE(x)            (((uint32_t)(((uint32_t)(x)) << RTC_TIMER_UPDATE_SHIFT)) & RTC_TIMER_UPDATE_MASK)
-
-// Флаг обновления события
-#define RTC_EVENT_FLAG_UPDATE_MASK     (0x10)          // Маска для флага обновления события (бит 4)
-#define RTC_EVENT_FLAG_UPDATE_SHIFT    (5U)            // Сдвиг для флага обновления события
-#define RTC_EVENT_FLAG_UPDATE(x)       (((uint32_t)(((uint32_t)(x)) << RTC_EVENT_FLAG_UPDATE_SHIFT)) & RTC_EVENT_FLAG_UPDATE_MASK)
-
 /*!
  * @}
  */ /* end of group RTC_Register_Masks */
