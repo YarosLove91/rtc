@@ -1,6 +1,7 @@
 module rtc_apb
 #(
-    parameter int APB_ADDR_W = 32
+    parameter int APB_ADDR_W                    = 32,
+              logic [APB_ADDR_W-1:0] BASE_ADDR  = '0
 )
 (
     input  logic pclk,
@@ -28,7 +29,6 @@ localparam int REGS_QTY         = APPLIED_IDX + 1;
 // apb regs params
 localparam int                    REGS_OFFSET = 4         ; // 32bit aligned addresses
 localparam int                    APB_DATA_W  = APB_ADDR_W;
-localparam logic [APB_ADDR_W-1:0] BASE_ADDR   = 'd0       ; // TODO: clarify what address
 
 // read only regs indexes set for apb regs module
 function bit [REGS_QTY-1:0] set_read_only_regs();
